@@ -25,8 +25,8 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
   `)
 	err := ii.UnmarshalYAML(yamlData)
 	assert.NoError(t, err)
-	assert.Equal(t, "docker.io/myapp:1.0", ii.Images["app.image"])
-	assert.Equal(t, "docker.io/app2:1.1", ii.Images["app2.image"])
+	assert.Equal(t, "docker.io/myapp:1.0", ii.Images["app.image.tag"])
+	assert.Equal(t, "docker.io/app2:1.1", ii.Images["app2.image.tag"])
 }
 
 func TestImageInfoMarshalJSON(t *testing.T) {
