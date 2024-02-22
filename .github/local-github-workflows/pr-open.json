@@ -1,0 +1,23 @@
+{
+    "pull_request": {
+      "number": 1,
+      "state": "open",
+      "head": {
+        "ref": "github_action_template",
+        "sha": "4e255ed31c7054fafa9742396e45c3fe99726c08"
+      },
+      "base": {
+        "ref": "main"
+      }
+    },
+    "repository": {
+      "name": "your-repo",
+      "owner": {
+        "login": "JayGhiya"
+      }
+    },
+    "sender": {
+      "login": "JayGhiya"
+    }
+  }
+  
