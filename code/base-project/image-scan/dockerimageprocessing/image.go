@@ -30,29 +30,43 @@ func (ii *ImageInfo) MarshalJSON() ([]byte, error) {
 	return json.Marshal(ii.Images)
 }
 
+type Node struct {
+	Value interface{}
+	Path  string
+}
+
 func (ii *ImageInfo) findImages(node interface{}, path string, images *map[string]string) {
-	switch node := node.(type) {
-	case map[string]interface{}:
-		for key, value := range node {
-			newPath := ii.appendPath(path, key)
-			// Check if the current map is an image specification
-			if registry, ok := node["registry"]; ok {
-				if repository, ok := node["repository"]; ok {
-					if tag, ok := node["tag"]; ok {
-						// Construct the full image path and add it to the map
+	stack := []Node{{Value: node, Path: path}}
+
+	for len(stack) > 0 {
+		// Pop the last node from the stack
+		var currentNode Node
+		currentNode, stack = stack[len(stack)-1], stack[:len(stack)-1]
+		path := currentNode.Path
+
+		switch node := currentNode.Value.(type) {
+		case map[string]interface{}:
+			// Check for image specification directly here
+			if registry, okR := node["registry"]; okR {
+				if repository, okRepo := node["repository"]; okRepo {
+					if tag, okTag := node["tag"]; okTag {
 						fullImagePath := fmt.Sprintf("%v/%v:%v", registry, repository, tag)
-						(*images)[newPath] = fullImagePath
-						return // Skip further searching in this branch
+						(*images)[path] = fullImagePath
+						// Do not continue processing this node
+						break
 					}
 				}
 			}
-			// Otherwise, recursively search each value
-			ii.findImages(value, newPath, images)
-		}
-	case []interface{}:
-		for i, value := range node {
-			newPath := ii.appendPath(path, fmt.Sprintf("[%d]", i))
-			ii.findImages(value, newPath, images)
+			// If not an image spec, or partially so, iterate over map and push to stack
+			for key, value := range node {
+				newPath := ii.appendPath(path, key)
+				stack = append(stack, Node{Value: value, Path: newPath})
+			}
+		case []interface{}:
+			for i, value := range node {
+				newPath := ii.appendPath(path, fmt.Sprintf("[%d]", i))
+				stack = append(stack, Node{Value: value, Path: newPath})
+			}
 		}
 	}
 }
