@@ -1,0 +1,24 @@
+{
+    "action": "closed",
+    "pull_request": {
+      "number": 123,
+      "state": "closed",
+      "title": "Sample Pull Request Title",
+      "body": "Description of the pull request.",
+      "head": {
+        "ref": "feature-branch-name"
+      },
+      "base": {
+        "ref": "main"
+      }
+    },
+    "repository": {
+      "name": "your-repository-name",
+      "owner": {
+        "login": "your-username"
+      }
+    },
+    "sender": {
+      "login": "your-username"
+    }
+  }

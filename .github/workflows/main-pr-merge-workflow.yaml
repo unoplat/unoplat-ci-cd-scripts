@@ -1,0 +1,27 @@
+name: Go merge workflow
+
+on:
+ pull_request:
+    types: [closed]
+    branches:
+        - main
+  
+jobs:
+  merge_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - uses: google-github-actions/release-please-action@v4
+        with:
+          # this assumes that you have created a personal access token
+          # (PAT) and configured it as a GitHub action secret named
+          # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # this is a built-in strategy in release-please, see "Action Inputs"
+          # for more options
+          release-type: go
+          path: code/base-project/image-scan
+          
+          
