@@ -10,6 +10,7 @@ import (
 
 func main() {
 	valueFileName := os.Getenv("VALUES_FILE")
+
 	logger, _ := zap.NewProduction()
 	data, err := utils.ReadFile(valueFileName)
 	if err != nil {
@@ -29,7 +30,8 @@ func main() {
 		return
 	}
 
-	fileName := "images.json"
+	//
+	fileName := "docker_images.json"
 	if err := utils.WriteFile(fileName, jsonData); err != nil {
 		logger.Error("Error writing to json", zap.Error(err))
 		return
