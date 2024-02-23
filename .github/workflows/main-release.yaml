@@ -2,12 +2,7 @@ name: go release
 
 on:
   release:
-    types: [created]
-     
-permissions:
-    contents: write
-    packages: write
-      
+    types: [published]
 
 jobs:
   releases-matrix:
