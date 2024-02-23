@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.1...v1.1.2) (2024-02-23)
+
+
+### Bug Fixes
+
+* file name ([b4a9999](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/b4a9999a77679bbca4e718facfacf979c7c5c918))
+
 ## [1.1.1](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.0...v1.1.1) (2024-02-23)
 
 
