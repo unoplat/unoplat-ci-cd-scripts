@@ -8,6 +8,8 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+// ImageInfo is a struct that encapsulates information about images.
+// It contains a map of image names to their respective file paths and a logger instance.
 type ImageInfo struct {
 	Images map[string]string
 	logger *zap.Logger
@@ -42,6 +44,18 @@ type Node struct {
 	Path  string
 }
 
+// findImages is a method of the ImageInfo struct that traverses a given node tree
+// (represented as an interface{}) in search of image specifications.
+// The method uses a stack to perform a depth-first search of the tree.
+// If an image specification is found, its path and corresponding image path are logged and stored in the images map.
+// The method also handles nested structures, such as maps and slices, by iterating over their elements and pushing them to the stack.
+//
+// Parameters:
+// node: the root node of the tree to be searched.
+// path: the initial path to the node.
+// images: a pointer to a map where the paths (as keys) and image paths (as values) of found images will be stored.
+//
+// This method does not return any value.
 func (ii *ImageInfo) findImages(node interface{}, path string, images *map[string]string) {
 	stack := []Node{{Value: node, Path: path}}
 
