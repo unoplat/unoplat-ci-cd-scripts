@@ -1,18 +1,34 @@
 name: Go merge workflow
 
 on:
- pull_request:
+  pull_request:
     types: [closed]
     branches:
-        - main
+      - main
   
 jobs:
-  merge_job:
-    name: Release Go Binary
+  prepare_release:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release_action_plan.outputs.releases_created }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Release Please
+        id: release_action_plan
+        uses: google-github-actions/release-please-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: go
+          path: code/base-project/image-scan
+
+  build_and_release:
+    needs: prepare_release
+    if: needs.prepare_release.outputs.release_created == 'true'
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
         goos: [linux, windows, darwin]
         goarch: [amd64, arm64]
         exclude:
@@ -22,20 +38,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - uses: google-github-actions/release-please-action@v4
-        id: release_action_plan
-        with:
-          # this assumes that you have created a personal access token
-          # (PAT) and configured it as a GitHub action secret named
-          # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # this is a built-in strategy in release-please, see "Action Inputs"
-          # for more options
-          release-type: go
-          path: code/base-project/image-scan
-
-      - uses: wangyoucao577/go-release-action@v1
-        if: steps.release_action_plan.outputs.releases_created == 'true'
+      - name: Build and Release Go Binary
+        uses: wangyoucao577/go-release-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
@@ -43,6 +47,4 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: "code/base-project/image-scan"
           binary_name: "image-scan"
-          release_tag: ${{ github.ref }}          
-            
-          
+          release_tag: ${{ github.event.release.tag_name }}
