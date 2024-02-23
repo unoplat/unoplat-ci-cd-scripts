@@ -30,10 +30,9 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
 }
 
 func TestImageInfoMarshalJSON(t *testing.T) {
-	ii := &ImageInfo{
-		Images: map[string]string{
-			"images": "example.com/myapp:latest",
-		},
+	ii := NewImageInfo()
+	ii.Images = map[string]string{
+		"images": "example.com/myapp:latest",
 	}
 	jsonData, err := ii.MarshalJSON()
 	assert.NoError(t, err)

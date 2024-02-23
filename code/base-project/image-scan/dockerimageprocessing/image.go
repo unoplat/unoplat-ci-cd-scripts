@@ -4,22 +4,29 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )
 
 type ImageInfo struct {
 	Images map[string]string
+	logger *zap.Logger
 }
 
 func NewImageInfo() *ImageInfo {
+	// Initialize the zap logger
+	logger, _ := zap.NewProduction()
+	defer logger.Sync()
 	return &ImageInfo{
 		Images: make(map[string]string),
+		logger: logger,
 	}
 }
 
 func (ii *ImageInfo) UnmarshalYAML(data []byte) error {
 	var values map[string]interface{}
 	if err := yaml.Unmarshal(data, &values); err != nil {
+		ii.logger.Error("Failed to unmarshal YAML", zap.Error(err))
 		return err
 	}
 	ii.findImages(values, "", &ii.Images)
@@ -48,6 +55,7 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 			// Directly check for image specification here
 			imagePath, isImage := ii.constructImagePath(node)
 			if isImage {
+				ii.logger.Info("Found image specification", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
 				(*images)[currentNode.Path+".tag"] = imagePath
 				continue // Found an image specification, no need to go deeper in this branch
 			}
