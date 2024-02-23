@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.2...v1.1.3) (2024-02-23)
+
+
+### Bug Fixes
+
+* name of helm values env ([6959def](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/6959def35ec1b77d0805e494e3a0a7da72580e36))
+
 ## [1.1.2](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.1...v1.1.2) (2024-02-23)
 
 
