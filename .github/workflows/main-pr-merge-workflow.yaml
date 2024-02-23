@@ -8,20 +8,41 @@ on:
   
 jobs:
   merge_job:
+    name: Release Go Binary
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/386, linux/amd64, linux/arm64, windows/386, windows/amd64, darwin/amd64, darwin/arm64
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+        exclude:
+          - goarch: arm64
+            goos: windows
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - uses: google-github-actions/release-please-action@v4
+        id: release_action_plan
         with:
           # this assumes that you have created a personal access token
           # (PAT) and configured it as a GitHub action secret named
           # `MY_RELEASE_PLEASE_TOKEN` (this secret name is not important).
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           # this is a built-in strategy in release-please, see "Action Inputs"
           # for more options
           release-type: go
           path: code/base-project/image-scan
-          
+
+      - uses: wangyoucao577/go-release-action@v1
+        if: steps.release_action_plan.outputs.releases_created == 'true'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
+          project_path: "code/base-project/image-scan"
+          binary_name: "image-scan"
+          release_tag: ${{ github.ref }}          
+            
           
