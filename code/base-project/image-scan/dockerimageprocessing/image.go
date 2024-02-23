@@ -19,6 +19,7 @@ func NewImageInfo() *ImageInfo {
 	defer logger.Sync()
 	return &ImageInfo{
 		Images: make(map[string]string),
+		logger: logger,
 	}
 }
 
