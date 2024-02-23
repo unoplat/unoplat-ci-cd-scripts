@@ -31,4 +31,4 @@ jobs:
         goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
         project_path: "code/base-project/image-scan"
         binary_name: "image-scan"
-        overwrite: true
+        release_tag: ${{ github.ref }}
