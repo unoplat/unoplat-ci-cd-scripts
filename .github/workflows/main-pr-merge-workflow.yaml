@@ -28,7 +28,7 @@ jobs:
         run: echo "project_path=code/base-project/image-scan--tag_name" >> $GITHUB_OUTPUT
       - name: Print Tag
       #the output of previous step comes as tag name want to print it below
-        run: echo "The tag name is ${{ steps.path_for_tag.outputs.project_path }}"
+        run: echo "The tag name is ${{ steps.release_action_plan.outputs.project_path }}"
     
 
   build_and_release:
