@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.2.0...v1.2.1) (2024-02-24)
+
+
+### Bug Fixes
+
+* right log statement when docker image specification is found ([ef54291](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/ef542910e5be6079876b91fe6c644e461a56508b))
+
 ## [1.2.0](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.3...v1.2.0) (2024-02-24)
 
 
