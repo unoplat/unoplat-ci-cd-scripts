@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.3...v1.2.0) (2024-02-24)
+
+
+### Features
+
+* added functionality for appending content to file inside file utils ([9733ede](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/9733edeea94abe0b23d7b3dd979b6206ae1ececf))
+
 ## [1.1.3](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.1.2...v1.1.3) (2024-02-23)
 
 
