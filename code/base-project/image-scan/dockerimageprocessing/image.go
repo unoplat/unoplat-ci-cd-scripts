@@ -69,7 +69,7 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 			// Directly check for image specification here
 			imagePath, isImage := ii.constructImagePath(node)
 			if isImage {
-				ii.logger.Info("Found image specification", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
+				ii.logger.Info("Found Docker Image specification", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
 				(*images)[currentNode.Path+".tag"] = imagePath
 				continue // Found an image specification, no need to go deeper in this branch
 			}
