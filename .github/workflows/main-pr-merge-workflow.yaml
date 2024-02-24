@@ -22,6 +22,10 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: go
           path: code/base-project/image-scan
+          
+      - name: Run Path Github Output Variable
+        run: echo "project_path=code/base-project/image-scan--tag_name" >> $GITHUB_OUTPUT
+    
 
   build_and_release:
     needs: prepare_release
@@ -47,4 +51,4 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: "code/base-project/image-scan"
           binary_name: "image-scan"
-          release_tag: ${{ github.event.release.tag_name }}
+          release_tag: ${{ needs.prepare_release.outputs.project_path }}
