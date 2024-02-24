@@ -17,3 +17,20 @@ func ReadFile(filePath string) ([]byte, error) {
 func WriteFile(filePath string, data []byte) error {
 	return os.WriteFile(filePath, data, 0644) // 0644 provides read/write permissions to the owner and read-only for others
 }
+
+func AppendToFile(filePath string, data []byte) error {
+	// Open the file in append mode, or create the file if it does not exist
+	file, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Write the data to the file
+	_, err = file.Write(data)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
