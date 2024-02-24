@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
-      tag_name: ${{ steps.release_action_plan.outputs[steps.path_for_tag.outputs.project_path] }} # Rewritten this line
+      tag_name: ${{ steps.release_action_plan.outputs.tag_name }} # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,12 +25,9 @@ jobs:
           release-type: go
           path: code/base-project/image-scan
           
-      - name: Run Path Github Output Variable
-        id: path_for_tag
-        run: echo "project_path=code/base-project/image-scan--tag_name">> $GITHUB_OUTPUT
       - name: Print Tag
       #the output of previous step comes as tag name want to print it below
-        run: echo "The tag name is ${{ steps.release_action_plan.outputs[steps.path_for_tag.outputs.project_path] }}"
+        run: echo "The tag name is ${{ steps.release_action_plan.outputs.tag_name }}"
     
 
   build_and_release:
