@@ -24,7 +24,11 @@ jobs:
           path: code/base-project/image-scan
           
       - name: Run Path Github Output Variable
+        id: path_for_tag
         run: echo "project_path=code/base-project/image-scan--tag_name" >> $GITHUB_OUTPUT
+      - name: Print Tag
+      #the output of previous step comes as tag name want to print it below
+        run: echo "The tag name is ${{ steps.path_for_tag.outputs.project_path }}"
     
 
   build_and_release:
@@ -52,3 +56,4 @@ jobs:
           project_path: "code/base-project/image-scan"
           binary_name: "image-scan"
           release_tag: ${{ needs.prepare_release.outputs.project_path }}
+          overwrite: true
