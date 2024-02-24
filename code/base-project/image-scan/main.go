@@ -14,7 +14,7 @@ func main() {
 	logger, _ := zap.NewProduction()
 	data, err := utils.ReadFile(valueFileName)
 	if err != nil {
-		logger.Error("Error reading YAML file:", zap.Error(err))
+		logger.Error("Error reading YAML file::", zap.Error(err))
 		return
 	}
 
