@@ -5,3 +5,5 @@
 # pr closed to main
 
 act pull_request -e .github/local-github-workflows/pr-merge.json -s GITHUB_TOKEN="$(gh auth token)" -W .github/workflows/main-pr-merge-workflow.yaml --container-architecture linux/arm64 
+
+act pull_request -e .github/local-github-workflows/pr-merge.json -s GITHUB_TOKEN="$(gh auth token)" -W .github/workflows/temp-workflow.yaml --container-architecture linux/arm64 
