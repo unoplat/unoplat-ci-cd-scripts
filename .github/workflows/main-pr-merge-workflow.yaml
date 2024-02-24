@@ -25,10 +25,8 @@ jobs:
           release-type: go
           path: code/base-project/image-scan
           
-      - name: Print Tag
-        if: steps.release_action_plan.outputs.releases_created
-      #the output of previous step comes as tag name want to print it below
-        run: echo "The tag name is ${{ steps.release_action_plan.outputs.tag_name }}"
+      - name: Print paths released
+        run: echo "The tag name is ${{ steps.release_action_plan.outputs.paths_released }}"
     
 
   build_and_release:
