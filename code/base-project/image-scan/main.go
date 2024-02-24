@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	valueFileName := os.Getenv("HELM_VALUES_FILE")
+	valueFileName := os.Getenv("HELM_VALUES_FILE_PATH")
 
 	logger, _ := zap.NewProduction()
 	data, err := utils.ReadFile(valueFileName)
