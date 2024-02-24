@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
+      tag_name: ${{ steps.release_action_plan.outputs[steps.path_for_tag.outputs.project_path] }} # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,10 +26,10 @@ jobs:
           
       - name: Run Path Github Output Variable
         id: path_for_tag
-        run: echo "project_path=code/base-project/image-scan--tag_name" >> $GITHUB_OUTPUT
+        run: echo "project_path=code/base-project/image-scan--tag_name">> $GITHUB_OUTPUT
       - name: Print Tag
       #the output of previous step comes as tag name want to print it below
-        run: echo "The tag name is ${{ steps.release_action_plan.outputs.project_path }}"
+        run: echo "The tag name is ${{ steps.release_action_plan.outputs[steps.path_for_tag.outputs.project_path] }}"
     
 
   build_and_release:
@@ -55,5 +56,5 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: "code/base-project/image-scan"
           binary_name: "image-scan"
-          release_tag: ${{ needs.prepare_release.outputs.project_path }}
+          release_tag: ${{ needs.prepare_release.outputs.tag_name }}
           overwrite: true
