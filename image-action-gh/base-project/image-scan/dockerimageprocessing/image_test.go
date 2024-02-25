@@ -16,7 +16,7 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
     image:
       registry: docker.io
       repository: myapp4
-      tag: "1.0"
+      tag: "1.1"
   app2:
     image:
       registry: docker.io
@@ -25,7 +25,7 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
   `)
 	err := ii.UnmarshalYAML(yamlData)
 	assert.NoError(t, err)
-	assert.Equal(t, "docker.io/myapp4:1.0", ii.Images["app.image.tag"])
+	assert.Equal(t, "docker.io/myapp4:1.1", ii.Images["app.image.tag"])
 	assert.Equal(t, "docker.io/app2:1.1", ii.Images["app2.image.tag"])
 }
 
