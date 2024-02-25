@@ -15,7 +15,7 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
   app:
     image:
       registry: docker.io
-      repository: myapp3
+      repository: myapp4
       tag: "1.0"
   app2:
     image:
