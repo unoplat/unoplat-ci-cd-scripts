@@ -51,7 +51,7 @@ jobs:
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
-          project_path: "code/base-project/image-scan"
+          project_path: "image-action-gh/base-project/image-scan"
           binary_name: "image-scan"
           release_tag: ${{ needs.prepare_release.outputs.tag_name }}
           overwrite: true
