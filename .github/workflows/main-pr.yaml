@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'code/base-project/image-scan/**'
+      - 'image-action-gh/base-project/image-scan/**'
 jobs:
   test-build-publish:
     name: Test, Build, and Publish
