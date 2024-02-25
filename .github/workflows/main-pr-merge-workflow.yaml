@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
-      tag_name: ${{ steps.release_action_plan.outputs.tag_name }} # Rewritten this line
+      tag_name: ${{ steps.release_action_plan.outputs.image-action-gh--tag_name }} # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,10 +23,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: go
-          path: code/base-project/image-scan
+          path: image-action-gh
           
       - name: Print paths released
-        run: echo "The tag name is ${{ steps.release_action_plan.outputs.paths_released }}"
+        run: echo "The tag name is ${{ steps.release_action_plan.outputs.image-action-gh--tag_name }}"
     
 
   build_and_release:

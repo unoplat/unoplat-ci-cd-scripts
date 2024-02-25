@@ -1,0 +1,10 @@
+#change the below to amd64 or arm64 based on detected cpu type
+compile_cmd = 'go test ./...'
+build_cmd = 'go build -o image-scan'
+local_resource(
+  'go-test',
+  compile_cmd)
+local_resource(
+  'go-build',
+  build_cmd,deps='go-test')
+
