@@ -25,16 +25,17 @@ func TestImageInfoUnmarshalYAML(t *testing.T) {
   `)
 	err := ii.UnmarshalYAML(yamlData)
 	assert.NoError(t, err)
-	assert.Equal(t, "docker.io/myapp4:1.1", ii.Images["app.image.tag"])
-	assert.Equal(t, "docker.io/app2:1.1", ii.Images["app2.image.tag"])
+	assert.Contains(t, ii.Images["docker.io/myapp4:1.1"], "app.image.tag")
+	assert.Contains(t, ii.Images["docker.io/app2:1.1"], "app2.image.tag")
 }
 
 func TestImageInfoMarshalJSON(t *testing.T) {
 	ii := NewImageInfo()
-	ii.Images = map[string]string{
-		"images": "example.com/myapp:latest",
+	ii.Images = map[string][]string{
+		"example.com/myapp:latest": {"images"},
 	}
 	jsonData, err := ii.MarshalJSON()
 	assert.NoError(t, err)
-	assert.JSONEq(t, `{"images":"example.com/myapp:latest"}`, string(jsonData))
+	assert.JSONEq(t, `{"example.com/myapp:latest":["images"]}`, string(jsonData))
+
 }

@@ -11,7 +11,7 @@ import (
 // ImageInfo is a struct that encapsulates information about images.
 // It contains a map of image names to their respective file paths and a logger instance.
 type ImageInfo struct {
-	Images map[string]string
+	Images map[string][]string
 	logger *zap.Logger
 }
 
@@ -20,7 +20,7 @@ func NewImageInfo() *ImageInfo {
 	logger, _ := zap.NewProduction()
 	defer logger.Sync()
 	return &ImageInfo{
-		Images: make(map[string]string),
+		Images: make(map[string][]string),
 		logger: logger,
 	}
 }
@@ -56,7 +56,7 @@ type Node struct {
 // images: a pointer to a map where the paths (as keys) and image paths (as values) of found images will be stored.
 //
 // This method does not return any value.
-func (ii *ImageInfo) findImages(node interface{}, path string, images *map[string]string) {
+func (ii *ImageInfo) findImages(node interface{}, path string, images *map[string][]string) {
 	stack := []Node{{Value: node, Path: path}}
 
 	for len(stack) > 0 {
@@ -70,7 +70,11 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 			imagePath, isImage := ii.constructImagePath(node)
 			if isImage {
 				ii.logger.Info("Found Docker Image specification:", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
-				(*images)[currentNode.Path+".tag"] = imagePath
+				// Access the slice of strings stored in the map 'images' using 'imagePath' as the key.
+				// Append the value of 'currentNode.Path' concatenated with ".tag" to this slice.
+				// Store the updated slice back in the map at the same key.
+				(*images)[imagePath] = append((*images)[imagePath], currentNode.Path+".tag")
+
 				continue // Found an image specification, no need to go deeper in this branch
 			}
 
