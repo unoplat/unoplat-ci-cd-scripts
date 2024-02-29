@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.2.5...v1.3.0) (2024-02-29)
+
+
+### Features
+
+* added functionality to parse multiple yaml paths that point to same image to make sure we update all possible tags ([5318352](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/531835284cddd19ff7462170519a061ba711ce79))
+
 ## [1.2.5](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.2.4...v1.2.5) (2024-02-25)
 
 
