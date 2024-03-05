@@ -1,0 +1,9 @@
+{
+    "packages": {
+      "image-action-gh/base-project/image-scan": {
+        "release-type": "go",
+        "changelog-path": "image-action-gh/CHANGELOG.md",
+        "include-component-in-tag" : true
+      }
+    }
+  }

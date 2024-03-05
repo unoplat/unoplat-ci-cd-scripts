@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
-      tag_name: ${{ steps.release_action_plan.outputs.image-action-gh--tag_name }} # Rewritten this line
+      # tag_name: ${{ steps.release_action_plan.outputs.image-action-gh--tag_name }} # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,36 +22,36 @@ jobs:
         uses: google-github-actions/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: go
-          path: image-action-gh
+          config-file: configuration/release-please-config.json
+          manifest-file: configuration/release-please-manifest.json
           
-      - name: Print paths released
-        run: echo "The tag name is ${{ steps.release_action_plan.outputs.image-action-gh--tag_name }}"
+      # - name: Print paths released
+      #   run: echo "The tag name is ${{ steps.release_action_plan.outputs }}"
     
 
-  build_and_release:
-    needs: prepare_release
-    if: needs.prepare_release.outputs.release_created == 'true'
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        goos: [linux, windows, darwin]
-        goarch: [amd64, arm64]
-        exclude:
-          - goarch: arm64
-            goos: windows
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # build_and_release:
+  #   needs: prepare_release
+  #   if: needs.prepare_release.outputs.release_created == 'true'
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       goos: [linux, windows, darwin]
+  #       goarch: [amd64, arm64]
+  #       exclude:
+  #         - goarch: arm64
+  #           goos: windows
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Build and Release Go Binary
-        uses: wangyoucao577/go-release-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: ${{ matrix.goos }}
-          goarch: ${{ matrix.goarch }}
-          goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
-          project_path: "image-action-gh/base-project/image-scan"
-          binary_name: "image-scan"
-          release_tag: ${{ needs.prepare_release.outputs.tag_name }}
-          overwrite: true
+  #     - name: Build and Release Go Binary
+  #       uses: wangyoucao577/go-release-action@v1
+  #       with:
+  #         github_token: ${{ secrets.GITHUB_TOKEN }}
+  #         goos: ${{ matrix.goos }}
+  #         goarch: ${{ matrix.goarch }}
+  #         goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
+  #         project_path: "image-action-gh/base-project/image-scan"
+  #         binary_name: "image-scan"
+  #         release_tag: ${{ needs.prepare_release.outputs.tag_name }}
+  #         overwrite: true
