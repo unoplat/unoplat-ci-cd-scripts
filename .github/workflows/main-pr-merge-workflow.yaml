@@ -22,8 +22,8 @@ jobs:
         uses: google-github-actions/release-please-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          config-file: configuration/release-please-config.json
-          manifest-file: configuration/release-please-manifest.json
+          config-file: .github/configuration/release-please-config.json
+          manifest-file: .github/configuration/release-please-manifest.json
           
       # - name: Print paths released
       #   run: echo "The tag name is ${{ steps.release_action_plan.outputs }}"
