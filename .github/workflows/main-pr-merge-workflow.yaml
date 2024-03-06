@@ -24,6 +24,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: .github/configuration/release-please-config.json
           manifest-file: .github/configuration/release-please-manifest.json
+          include-component-in-tag: true
           
       # - name: Print paths released
       #   run: echo "The tag name is ${{ steps.release_action_plan.outputs }}"

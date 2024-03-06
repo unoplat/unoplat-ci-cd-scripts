@@ -4,7 +4,7 @@
 
 # Prerequsites
 
-- go >1.22.0
+- go >1.22
 - tilt
 
 Note: both can be installed through brew on macos and linux.
