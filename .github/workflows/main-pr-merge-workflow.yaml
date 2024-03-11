@@ -16,7 +16,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 #         
+          fetch-depth: 0 #   
+
+      - name: Install jq
+        run: sudo apt-get install jq
+        
       - name: Release Please
         id: release_action_plan
         uses: google-github-actions/release-please-action@v4
@@ -27,7 +31,7 @@ jobs:
           include-component-in-tag: true
           
       - name: Print paths released
-        run: echo "The tag name is ${{ fromJson(steps.release_action_plan.outputs.paths_released) }}"
+        run: echo '${{ fromJson(steps.release_action_plan.outputs.paths_released) }}' | jq '.[]'
     
 
   # build_and_release:
