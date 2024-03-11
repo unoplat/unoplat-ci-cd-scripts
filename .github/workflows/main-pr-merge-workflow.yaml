@@ -33,7 +33,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const outputs = steps.release_action_plan.outputs;
+            const outputs = ${{steps.release_action_plan.outputs}};
             const jsonOutputs = JSON.stringify(outputs);
             core.setOutput('all_outputs', jsonOutputs);
             
