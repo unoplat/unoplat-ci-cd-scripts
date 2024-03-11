@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.4](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.3...image-scan-v1.4.4) (2024-03-11)
+
+
+### Bug Fixes
+
+* testing go release ([b7d0d01](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/b7d0d019e5dcc298e4f1ace17797a9aeb791720b))
+
 ## [1.4.3](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.2...image-scan-v1.4.3) (2024-03-11)
 
 
