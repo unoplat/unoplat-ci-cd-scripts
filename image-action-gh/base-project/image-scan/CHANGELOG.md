@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.8](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.7...image-scan-v1.4.8) (2024-03-11)
+
+
+### Bug Fixes
+
+* dummy commit for  google please release action ([8306267](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/83062677674e7248d1a972eaba198a6cf3350098))
+
 ## [1.4.7](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.6...image-scan-v1.4.7) (2024-03-11)
 
 
