@@ -30,13 +30,14 @@ jobs:
           include-component-in-tag: true
       - name: Set all outputs
         id: set_all_outputs
-        run: |
-          echo "::set-output name=all_outputs::${{ toJson(steps.release_action_plan.outputs) }}"
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const outputs = steps.release_action_plan.outputs;
+            const jsonOutputs = JSON.stringify(outputs);
+            core.setOutput('all_outputs', jsonOutputs);
             
       
-      
-          
-
   build_and_release:
     needs: prepare_release
     if: needs.prepare_release.outputs.release_created == 'true'
