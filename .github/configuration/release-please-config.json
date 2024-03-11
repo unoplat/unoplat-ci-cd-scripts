@@ -2,6 +2,7 @@
     "packages": {
       "image-action-gh/base-project/image-scan": {
         "release-type": "go",
+        "component" : "image-scan",
         "changelog-path": "CHANGELOG.md",
         "include-component-in-tag" : true
       }
