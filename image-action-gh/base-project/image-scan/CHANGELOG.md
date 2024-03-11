@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.4.0](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.3.4...image-scan-v1.4.0) (2024-03-11)
+
+
+### Features
+
+* added functionality to parse multiple yaml paths that point to same image to make sure we update all possible tags ([5318352](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/531835284cddd19ff7462170519a061ba711ce79))
+
+
+### Bug Fixes
+
+* added exclamation mark to the end of yaml. this is to test release please action. not a real changelog ([b0a0428](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/b0a04280885f0d58e301563b9c1d4ee9cc8d6666))
+* dummy commit ([eb1ebfc](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/eb1ebfc4793e6d1175d86db29dc546aab5733552))
+* dummy commit to test release please action ([9ddddc9](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/9ddddc9e1950f84528447e62f28d8609322c3d27))
+* dummy fix for testing github release ([ab92915](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/ab929158cc084addef7311a1cd5185ecdb54cdc5))
+* dummy release please action ([46fe313](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/46fe31377e26ac32309226fe82f8339d4b39db71))
+* dummy test for release please action ([6768134](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/67681343e67cdd1048ec522c5e1f8d9a7c427081))
+* exclamation mark. this is just to test go release please actiong ([76d7942](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/76d7942f520f9fc3afa8e9abcddfd3e05a78b4cb))
+* fummy go release action test ([40fe2bb](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/40fe2bb384fecac92429b1e1d69628ad440fec7f))
+* go release please test ([4187e77](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/4187e7764a38fb6156e85a73172df0afa21314ac))
+* path ([7b21071](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/7b210713c0f1c51f22e4a2dc653ef28a21d56e56))
+* test ([56f0e1c](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/56f0e1c1b2b6ced2581aefab11cb7f5aaf509c74))
+* test ([7397abb](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/7397abb74fd6bc54e2dfe3297932aabfb3bdce60))
+* test release action ([6d68933](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/6d68933032cd9cf06a955cf61856956f98911360))
+* testing go release please action ([881f60c](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/881f60c4bdf2b51692650e004a6e78e22810f940))
+* the test ([6577233](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/657723311c937a8b447845de17e1b548ee2fd9b8))
+
 ## [1.3.4](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.3.3...v1.3.4) (2024-03-06)
 
 
