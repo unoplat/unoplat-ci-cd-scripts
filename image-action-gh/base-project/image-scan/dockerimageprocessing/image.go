@@ -69,7 +69,7 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 			// Directly check for image specification here
 			imagePath, isImage := ii.constructImagePath(node)
 			if isImage {
-				ii.logger.Info("Found docker Image  Specification :", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
+				ii.logger.Info("Found docker Image  Specification:", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
 				// Access the slice of strings stored in the map 'images' using 'imagePath' as the key.
 				// Append the value of 'currentNode.Path' concatenated with ".tag" to this slice.
 				// Store the updated slice back in the map at the same key.
