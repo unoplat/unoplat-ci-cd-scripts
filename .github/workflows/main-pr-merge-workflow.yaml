@@ -34,11 +34,10 @@ jobs:
         with:
           script: |
             const outputs = ${{steps.release_action_plan.outputs}};
+            console.log('Outputs:', outputs);
             const jsonOutputs = JSON.stringify(outputs);
+            console.log('Outputs:', outputs);
             core.setOutput('all_outputs', jsonOutputs);
-      - name: Debug all outputs
-        run: |
-          echo "All outputs set to: ${{ steps.set_all_outputs.outputs.all_outputs }}"
       
   # build_and_release:
   #   needs: prepare_release
