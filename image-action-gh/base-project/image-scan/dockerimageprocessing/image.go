@@ -28,7 +28,7 @@ func NewImageInfo() *ImageInfo {
 func (ii *ImageInfo) UnmarshalYAML(data []byte) error {
 	var values map[string]interface{}
 	if err := yaml.Unmarshal(data, &values); err != nil {
-		ii.logger.Error("Failed to unmarshal YAML!", zap.Error(err))
+		ii.logger.Error("Failed to unmarshal YAML !", zap.Error(err))
 		return err
 	}
 	ii.findImages(values, "", &ii.Images)
