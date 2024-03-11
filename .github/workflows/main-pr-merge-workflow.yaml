@@ -31,7 +31,9 @@ jobs:
           include-component-in-tag: true
           
       - name: Print paths released
-        run: echo '${{ fromJson(steps.release_action_plan.outputs.paths_released) }}' | jq '.[]'
+        run: |
+          paths_released='${{ steps.release_action_plan.outputs.paths_released }}'
+          echo $paths_released | jq '.[]'
     
 
   # build_and_release:
