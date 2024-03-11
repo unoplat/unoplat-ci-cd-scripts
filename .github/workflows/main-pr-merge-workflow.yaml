@@ -54,10 +54,17 @@ jobs:
         uses: actions/checkout@v4
       
       - name: form tag name
-        id: set_tag_name
-        run: |
-          INPUT_VAR="${{ matrix.tag }}--tag_name"
-          echo "::set-output name=release_tag::${{ fromJson(needs.prepare_release.outputs.all_outputs)[env.INPUT_VAR] }}"
+        id: set_path_name
+        run: echo "PATH_NAME=${{ matrix.tag }}--tag_name" >> $GITHUB_ENV
+      
+      - name: Use github-script to access dynamic key
+        id: set_release_tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const allOutputs = JSON.parse('${{ needs.prepare_release.outputs.all_outputs }}');
+            const releaseTag = allOutputs['${{ steps.set_path_name.outputs.PATH_NAME }}'];
+            core.setOutput('releaseTag', releaseTag);
         
       - name: Build and Release Go Binary
         uses: wangyoucao577/go-release-action@v1
@@ -68,5 +75,5 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: "image-action-gh/base-project/image-scan"
           binary_name: "image-scan"
-          release_tag: ${{ steps.set_tag_name.outputs.release_tag }}
+          release_tag: ${{ steps.set_release_tag.outputs.releaseTag }}
           overwrite: true
