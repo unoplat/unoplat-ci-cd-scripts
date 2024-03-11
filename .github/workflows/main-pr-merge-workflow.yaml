@@ -12,16 +12,14 @@ jobs:
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
       paths_released: ${{ steps.release_action_plan.outputs.paths_released }}
-      all_outputs: ${{ steps.release_action_plan.outputs }}  # Rewritten this line
+      all_outputs: ${{ steps.set_all_outputs.outputs.all_outputs }}  # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 #   
-
       - name: Install jq
         run: sudo apt-get install jq
-        
       - name: Release Please
         id: release_action_plan
         uses: google-github-actions/release-please-action@v4
@@ -30,6 +28,11 @@ jobs:
           config-file: .github/configuration/release-please-config.json
           manifest-file: .github/configuration/release-please-manifest.json
           include-component-in-tag: true
+      - name: Set all outputs
+        id: set_all_outputs
+        run: |
+          echo "::set-output name=all_outputs::${{ toJson(steps.release_action_plan.outputs) }}"
+            
       
       
           
