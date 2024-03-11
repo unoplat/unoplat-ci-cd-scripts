@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.4](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.3.3...v1.3.4) (2024-03-06)
+
+
+### Bug Fixes
+
+* dummy release please action ([46fe313](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/46fe31377e26ac32309226fe82f8339d4b39db71))
+* dummy test for release please action ([6768134](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/67681343e67cdd1048ec522c5e1f8d9a7c427081))
+* fummy go release action test ([40fe2bb](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/40fe2bb384fecac92429b1e1d69628ad440fec7f))
+* go release please test ([4187e77](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/4187e7764a38fb6156e85a73172df0afa21314ac))
+* test release action ([6d68933](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/6d68933032cd9cf06a955cf61856956f98911360))
+* testing go release please action ([881f60c](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/881f60c4bdf2b51692650e004a6e78e22810f940))
+
 ## [1.3.3](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/v1.3.2...v1.3.3) (2024-03-06)
 
 
