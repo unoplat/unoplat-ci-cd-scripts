@@ -9,6 +9,7 @@ import (
 )
 
 func main() {
+
 	valueFileName := os.Getenv("HELM_VALUES_FILE_PATH")
 
 	logger, _ := zap.NewProduction()
