@@ -11,8 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release_action_plan.outputs.releases_created }}
-      paths_released: ${{ steps.release_action_plan.outputs.paths_released }}
-      all_outputs: ${{ steps.set_all_outputs.outputs.all_outputs }}  # Rewritten this line
+      tag_name_result: ${{ steps.modify_output.outputs.tag_name_result }}  # Rewritten this line
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,14 +27,28 @@ jobs:
           config-file: .github/configuration/release-please-config.json
           manifest-file: .github/configuration/release-please-manifest.json
           include-component-in-tag: true
-      - name: Set all outputs
-        id: set_all_outputs
+      - name: Set up content output
+        id: modify_output
+        if: steps.release_action_plan.outputs.release_created == 'true'
         uses: actions/github-script@v5
-        with:
+        with: 
           script: |
-            const jsonOutputs = ${{toJson(steps.release_action_plan.outputs)}};
-            console.log('Outputs:', jsonOutputs);
-            core.setOutput('all_outputs', jsonOutputs);
+            const allOutputs = ${{ steps.release_action_plan.outputs }};
+            const pathsReleased = ${{ fromJson(steps.release_action_plan.outputs.paths_released) }};
+            let hashMap = {};
+            let resultArray = [];
+            for (const [key, value] of Object.entries(allOutputs)) {
+                // Ensure both key and value are strings
+                hashMap[String(key)] = String(value);
+            }
+            for (const path of pathsReleased) {
+                const nameKey = `${path}--name`;
+                if (hashMap[nameKey]) {
+                const name = hashMap[nameKey].split(':')[0];  
+                resultArray.push(`${path};${hashMap[nameKey]};${name}`);
+                }
+            }
+            core.setOutput("tag_name_result", JSON.stringify(resultArray));            
       
   build_and_release:
     needs: prepare_release
@@ -45,7 +58,7 @@ jobs:
       matrix:
         goos: [linux, windows, darwin]
         goarch: [amd64, arm64]
-        tag: ${{ fromJson(needs.prepare_release.outputs.paths_released) }}
+        path: ${{ fromJson(needs.prepare_release.outputs.tag_name_result) }}
         exclude:
           - goarch: arm64
             goos: windows
@@ -53,28 +66,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: form tag name
-        id: set_path_name
-        run: echo "PATH_NAME=${{ matrix.tag }}--tag_name" >> $GITHUB_ENV
-      
-      - name: Use github-script to access dynamic key
-        id: set_release_tag
-        uses: actions/github-script@v5
-        with:
-          script: |
-            const allOutputs = ${{ fromJson(needs.prepare_release.outputs.all_outputs) }};
-            const releaseTag = allOutputs['${{ steps.set_path_name.outputs.PATH_NAME }}'];
-            console.log('releaseTag',releaseTag)
-            core.setOutput('releaseTag', releaseTag);
+      - name: form right entities
+        id: set_right_names
+        run: |
+          IFS=';' read -ra ADDR <<< "${{ matrix.path }}"
+          echo "::set-output name=path::${ADDR[0]}"
+          echo "::set-output name=release_tag::${ADDR[1]}"
+          echo "::set-output name=binary_name::${ADDR[2]}"
+          
         
-  #     - name: Build and Release Go Binary
-  #       uses: wangyoucao577/go-release-action@v1
-  #       with:
-  #         github_token: ${{ secrets.GITHUB_TOKEN }}
-  #         goos: ${{ matrix.goos }}
-  #         goarch: ${{ matrix.goarch }}
-  #         goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
-  #         project_path: "image-action-gh/base-project/image-scan"
-  #         binary_name: "image-scan"
-  #         release_tag: ${{ steps.set_release_tag.outputs.releaseTag }}
-  #         overwrite: true
+      - name: Build and Release Go Binary
+        uses: wangyoucao577/go-release-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
+          project_path: ${{ steps.set_right_names.outputs.path}}
+          binary_name: ${{ steps.set_right_names.outputs.binary_name}}
+          release_tag:  ${{ steps.set_right_names.outputs.release_tag}}
+          overwrite: true
