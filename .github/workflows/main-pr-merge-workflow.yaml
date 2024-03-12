@@ -35,6 +35,7 @@ jobs:
           script: |
             const jsonOutputs = ${{toJson(steps.release_action_plan.outputs)}};
             console.log('Outputs:', jsonOutputs);
+            core.setOutput('all_outputs', jsonOutputs);
       
   build_and_release:
     needs: prepare_release
