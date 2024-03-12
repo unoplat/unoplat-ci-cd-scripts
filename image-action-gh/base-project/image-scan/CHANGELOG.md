@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.15](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.14...image-scan-v1.4.15) (2024-03-12)
+
+
+### Bug Fixes
+
+* workflow ([acd262d](https://github.com/unoplat/unoplat-ci-cd-scripts/commit/acd262da6c5ac3518b3eb926d79bbb95ca92c1b5))
+
 ## [1.4.14](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.13...image-scan-v1.4.14) (2024-03-12)
 
 
