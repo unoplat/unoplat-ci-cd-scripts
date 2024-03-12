@@ -53,7 +53,7 @@ jobs:
                 resultArray.push(`${path};${hashMap[nameKey]};${name}`);
                 }
             }
-            core.setOutput("tag_name_result", JSON.stringify(resultArray));            
+            core.setOutput('tag_name_result', JSON.stringify(resultArray));            
       
   build_and_release:
     needs: prepare_release
