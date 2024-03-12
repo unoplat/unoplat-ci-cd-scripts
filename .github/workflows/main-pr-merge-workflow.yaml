@@ -34,6 +34,7 @@ jobs:
         with: 
           script: |
             const allOutputs = ${{ steps.release_action_plan.outputs }};
+            console.log("all outputs",allOutputs);
             const pathsReleased =  JSON.parse('${{ steps.release_action_plan.outputs.paths_released }}');
             console.log("pathsReleased",pathsReleased);
             let hashMap = {};
@@ -41,15 +42,17 @@ jobs:
             for (const [key, value] of Object.entries(allOutputs)) {
                 // Ensure both key and value are strings
                 hashMap[String(key)] = String(value);
+                console.log("key:",key);
+                console.log("value:",value);
             }
             for (const path of pathsReleased) {
                 const nameKey = `${path}--name`;
                 if (hashMap[nameKey]) {
-                const name = hashMap[nameKey].split(':')[0];  
+                const name = hashMap[nameKey].split(':')[0];
+                console.log("name of binary:",name);  
                 resultArray.push(`${path};${hashMap[nameKey]};${name}`);
                 }
             }
-            
             core.setOutput("tag_name_result", JSON.stringify(resultArray));            
       
   build_and_release:
