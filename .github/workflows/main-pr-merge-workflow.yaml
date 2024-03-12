@@ -29,7 +29,7 @@ jobs:
           include-component-in-tag: true
       - name: Set up content output
         id: modify_output
-        if: steps.release_action_plan.outputs.release_created == 'true'
+        if: steps.release_action_plan.outputs.releases_created 
         uses: actions/github-script@v5
         with: 
           script: |
@@ -48,6 +48,7 @@ jobs:
                 resultArray.push(`${path};${hashMap[nameKey]};${name}`);
                 }
             }
+            
             core.setOutput("tag_name_result", JSON.stringify(resultArray));            
       
   build_and_release:
