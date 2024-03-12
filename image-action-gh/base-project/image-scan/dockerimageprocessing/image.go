@@ -1,3 +1,4 @@
+
 package dockerimageprocessing
 
 import (
@@ -15,6 +16,7 @@ type ImageInfo struct {
 	logger *zap.Logger
 }
 
+// NewImageInfo initializes a new ImageInfo instance with a map and a logger.
 func NewImageInfo() *ImageInfo {
 	// Initialize the zap logger
 	logger, _ := zap.NewProduction()
@@ -25,20 +27,23 @@ func NewImageInfo() *ImageInfo {
 	}
 }
 
+// UnmarshalYAML is a method that unmarshals YAML data into a map and finds images in it.
 func (ii *ImageInfo) UnmarshalYAML(data []byte) error {
 	var values map[string]interface{}
 	if err := yaml.Unmarshal(data, &values); err != nil {
-		ii.logger.Error("  Failed to unmarshal YAML!", zap.Error(err))
+		ii.logger.Error("Failed to unmarshal YAML !", zap.Error(err))
 		return err
 	}
 	ii.findImages(values, "", &ii.Images)
 	return nil
 }
 
+// MarshalJSON is a method that marshals the Images map into JSON format.
 func (ii *ImageInfo) MarshalJSON() ([]byte, error) {
 	return json.Marshal(ii.Images)
 }
 
+// Node is a struct that represents a node in a tree. It contains the node's value and path.
 type Node struct {
 	Value interface{}
 	Path  string
@@ -47,7 +52,7 @@ type Node struct {
 // findImages is a method of the ImageInfo struct that traverses a given node tree
 // (represented as an interface{}) in search of image specifications.
 // The method uses a stack to perform a depth-first search of the tree.
-// If an image specification is found, its path and corresponding image path are logged and stored in the images map.
+// If an image specification is found, its path and corresponding image path are logged and stored in the Images map.
 // The method also handles nested structures, such as maps and slices, by iterating over their elements and pushing them to the stack.
 //
 // Parameters:
@@ -70,9 +75,9 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 			imagePath, isImage := ii.constructImagePath(node)
 			if isImage {
 				ii.logger.Info("Found docker Image Specification:", zap.String("path", currentNode.Path+".tag"), zap.String("imagePath", imagePath))
-				// Access the slice of strings stored in the map 'images' using 'imagePath' as the key.
+				// Access the slice of strings stored in the Images map using 'imagePath' as the key.
 				// Append the value of 'currentNode.Path' concatenated with ".tag" to this slice.
-				// Store the updated slice back in the map at the same key.
+				// Store the updated slice back in the Images map at the same key.
 				(*images)[imagePath] = append((*images)[imagePath], currentNode.Path+".tag")
 
 				continue // Found an image specification, no need to go deeper in this branch
@@ -92,7 +97,7 @@ func (ii *ImageInfo) findImages(node interface{}, path string, images *map[strin
 	}
 }
 
-// Helper function to construct the full image path if possible
+// constructImagePath is a helper function that constructs the full image path if possible.
 func (ii *ImageInfo) constructImagePath(node map[string]interface{}) (string, bool) {
 	registry, hasRegistry := node["registry"].(string)
 	repository, hasRepository := node["repository"].(string)
@@ -104,12 +109,10 @@ func (ii *ImageInfo) constructImagePath(node map[string]interface{}) (string, bo
 	return "", false
 }
 
-// Helper function to append new segments to a path
+// appendPath is a helper function to append new segments to a path.
 func (ii *ImageInfo) appendPath(basePath, addition string) string {
 	if basePath == "" {
 		return addition
 	}
 	return basePath + "." + addition
 }
-
-// findImages and appendPath functions remain unchanged, but are methods of ImageInfo struct.
