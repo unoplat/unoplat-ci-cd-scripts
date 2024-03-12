@@ -34,7 +34,8 @@ jobs:
         with: 
           script: |
             const allOutputs = ${{ steps.release_action_plan.outputs }};
-            const pathsReleased = ${{ fromJson(steps.release_action_plan.outputs.paths_released) }};
+            const pathsReleased =  JSON.parse(${{ steps.release_action_plan.outputs.paths_released }});
+            console.log("pathsReleased",pathsReleased);
             let hashMap = {};
             let resultArray = [];
             for (const [key, value] of Object.entries(allOutputs)) {
