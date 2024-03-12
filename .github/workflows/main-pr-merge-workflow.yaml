@@ -62,7 +62,7 @@ jobs:
         uses: actions/github-script@v5
         with:
           script: |
-            const allOutputs = JSON.parse('${{ needs.prepare_release.outputs.all_outputs }}');
+            const allOutputs = ${{ fromJson(needs.prepare_release.outputs.all_outputs) }};
             const releaseTag = allOutputs['${{ steps.set_path_name.outputs.PATH_NAME }}'];
             console.log('releaseTag',releaseTag)
             core.setOutput('releaseTag', releaseTag);
