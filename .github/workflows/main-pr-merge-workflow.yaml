@@ -91,6 +91,6 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: ${{ steps.set_right_names.outputs.path}}
           binary_name: ${{ steps.set_right_names.outputs.binary_name}}
-          release_tag:  ${{ steps.set_right_names.outputs.release_tag}}
+          release_tag: '${{ steps.set_right_names.outputs.release_tag}}'
           asset_name: ${{ steps.set_right_names.outputs.binary_name}}-${{ steps.set_right_names.outputs.version_number}}-${{ matrix.goos }}-${{ matrix.goarch }}
           overwrite: true
