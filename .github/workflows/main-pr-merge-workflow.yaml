@@ -78,7 +78,12 @@ jobs:
           echo "::set-output name=path::${ADDR[0]}"
           echo "::set-output name=release_tag::${ADDR[1]}"
           echo "::set-output name=binary_name::${ADDR[2]}"
-          
+
+      - name: Debug outputs
+        run: |
+          echo "Path: ${{ steps.set_right_names.outputs.path }}"
+          echo "Release tag: ${{ steps.set_right_names.outputs.release_tag }}"
+          echo "Binary name: ${{ steps.set_right_names.outputs.binary_name }}"          
         
       - name: Build and Release Go Binary
         uses: wangyoucao577/go-release-action@v1
