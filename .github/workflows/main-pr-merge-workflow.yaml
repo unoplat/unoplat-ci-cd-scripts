@@ -78,12 +78,9 @@ jobs:
           echo "::set-output name=path::${ADDR[0]}"
           echo "::set-output name=release_tag::${ADDR[1]}"
           echo "::set-output name=binary_name::${ADDR[2]}"
-
-      - name: Debug outputs
-        run: |
-          echo "Path: ${{ steps.set_right_names.outputs.path }}"
-          echo "Release tag: ${{ steps.set_right_names.outputs.release_tag }}"
-          echo "Binary name: ${{ steps.set_right_names.outputs.binary_name }}"          
+          # Extract just the version number from the release_tag
+          VERSION_NUMBER=${ADDR[1]#*: v}
+          echo "::set-output name=version_number::${VERSION_NUMBER}"          
         
       - name: Build and Release Go Binary
         uses: wangyoucao577/go-release-action@v1
@@ -95,5 +92,5 @@ jobs:
           project_path: ${{ steps.set_right_names.outputs.path}}
           binary_name: ${{ steps.set_right_names.outputs.binary_name}}
           release_tag:  ${{ steps.set_right_names.outputs.release_tag}}
-          asset_name: ${{ steps.set_right_names.outputs.binary_name}}-${{ matrix.goos }}-${{ matrix.goarch }}
+          asset_name: ${{ steps.set_right_names.outputs.binary_name}}-${{ steps.set_right_names.outputs.version_number}}-${{ matrix.goos }}-${{ matrix.goarch }}
           overwrite: true
