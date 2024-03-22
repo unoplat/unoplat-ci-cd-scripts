@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.20](https://github.com/unoplat/unoplat-utilities/compare/image-scan-v1.4.19...image-scan-v1.4.20) (2024-03-22)
+
+
+### Bug Fixes
+
+* dummy fix to test release ([7890b1b](https://github.com/unoplat/unoplat-utilities/commit/7890b1bde303f0543e541ad5e8f15fffdb7d5f7a))
+
 ## [1.4.19](https://github.com/unoplat/unoplat-ci-cd-scripts/compare/image-scan-v1.4.18...image-scan-v1.4.19) (2024-03-22)
 
 
