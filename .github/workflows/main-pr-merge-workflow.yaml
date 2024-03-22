@@ -76,7 +76,6 @@ jobs:
         run: |
           IFS=';' read -ra ADDR <<< "${{ matrix.path }}"
           echo "::set-output name=path::${ADDR[0]}"
-          #before setting release tag would want to modify - image-scan: v1.4.18 to image-scan-v1.4.18
           MODIFIED_RELEASE_TAG="${ADDR[1]//:/-}"
           MODIFIED_RELEASE_TAG="${MODIFIED_RELEASE_TAG// /}"
           echo "::set-output name=release_tag::${MODIFIED_RELEASE_TAG}"
@@ -94,6 +93,6 @@ jobs:
           goversion: "https://go.dev/dl/go1.22.0.linux-amd64.tar.gz"
           project_path: ${{ steps.set_right_names.outputs.path}}
           binary_name: ${{ steps.set_right_names.outputs.binary_name}}
-          release_tag: '${{ steps.set_right_names.outputs.release_tag}}'
-          asset_name: ${{ steps.set_right_names.outputs.binary_name}}-${{ steps.set_right_names.outputs.version_number}}-${{ matrix.goos }}-${{ matrix.goarch }}
+          release_tag:  ${{ steps.set_right_names.outputs.release_tag}}
+          asset_name: ${{ steps.set_right_names.outputs.binary_name}}-v${{ steps.set_right_names.outputs.version_number}}-${{ matrix.goos }}-${{ matrix.goarch }}
           overwrite: true
