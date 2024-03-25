@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/unoplat/unoplat-utilities/compare/image-scan-v1.4.20...image-scan-v1.5.0) (2024-03-25)
+
+
+### Features
+
+* added ability to externalise path ([accf3d3](https://github.com/unoplat/unoplat-utilities/commit/accf3d3be2926305301a6bcb7b12ea3321264d4d))
+
 ## [1.4.20](https://github.com/unoplat/unoplat-utilities/compare/image-scan-v1.4.19...image-scan-v1.4.20) (2024-03-22)
 
 
