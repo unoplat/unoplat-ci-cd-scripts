@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 
 	dockerimageprocessing "github.com/unoplat/unoplat-ci-cd-scripts/code/image-scan/dockerimageprocessing"
 	"github.com/unoplat/unoplat-ci-cd-scripts/code/image-scan/utils"
@@ -11,8 +12,14 @@ import (
 func main() {
 
 	valueFileName := os.Getenv("HELM_VALUES_FILE_PATH")
-
+	jsonFilePath := os.Getenv("DOCKER_IMAGES_JSON_PATH")
 	logger, _ := zap.NewProduction()
+
+	if jsonFilePath == "" {
+		logger.Error("DOCKER_IMAGES_JSON_PATH environment variable is not set")
+		return
+	}
+
 	data, err := utils.ReadFile(valueFileName)
 	if err != nil {
 		logger.Error("Error reading YAML file::", zap.Error(err))
@@ -31,9 +38,10 @@ func main() {
 		return
 	}
 
-	//
 	fileName := "docker_images.json"
-	if err := utils.WriteFile(fileName, jsonData); err != nil {
+	fullPath := filepath.Join(jsonFilePath, fileName)
+
+	if err := utils.WriteFile(fullPath, jsonData); err != nil {
 		logger.Error("Error writing to json", zap.Error(err))
 		return
 	}
