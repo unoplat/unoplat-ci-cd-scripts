@@ -30,4 +30,4 @@ Output
 }
 ```
 
-This enables us to scan for vulnerabilities inside container images and then patch them using copacectic and modify the values for patched images automatically using their known locations.
+This enables us to scan for vulnerabilities inside container images and scan them using trivy and then patch them using copacectic and modify the values for patched images automatically using their known locations.
